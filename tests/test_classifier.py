@@ -40,3 +40,5 @@ def test_classify_completed():
     classifier = TerminalClassifier()
     result = classifier.classify("Task completed successfully. Goodbye!")
     assert result["classification"] == "completed"
+
+
