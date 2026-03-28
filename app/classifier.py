@@ -1,7 +1,18 @@
 from transformers import pipeline
 
 
-LABELS = ["waiting_input", "processing", "completed"]
+# Natural language labels for better model accuracy, mapped to API response labels
+NATURAL_LABELS = [
+    "waiting for user input",
+    "still processing",
+    "task completed",
+]
+
+LABEL_MAP = {
+    "waiting for user input": "waiting_input",
+    "still processing": "processing",
+    "task completed": "completed",
+}
 
 
 class TerminalClassifier:
@@ -12,14 +23,14 @@ class TerminalClassifier:
         )
 
     def classify(self, text: str) -> dict:
-        result = self.pipe(text, candidate_labels=LABELS)
+        result = self.pipe(text, candidate_labels=NATURAL_LABELS)
 
         scores = {
-            label: round(score, 4)
+            LABEL_MAP[label]: round(score, 4)
             for label, score in zip(result["labels"], result["scores"])
         }
 
-        top_label = result["labels"][0]
+        top_label = LABEL_MAP[result["labels"][0]]
         confidence = scores[top_label]
 
         return {
