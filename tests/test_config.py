@@ -11,6 +11,7 @@ def test_config_loads_defaults():
         assert settings.port == 8980
         assert settings.api_key == "test-key"
         assert settings.cpu_cores == 1
+        assert settings.host == "127.0.0.1"
 
 
 def test_config_loads_custom_values():
@@ -18,6 +19,7 @@ def test_config_loads_custom_values():
         "PORT": "9000",
         "API_KEY": "my-secret",
         "CPU_CORES": "8",
+        "EXPOSE": "1",
     }
     with patch.dict(os.environ, env, clear=False):
         from importlib import reload
@@ -27,3 +29,4 @@ def test_config_loads_custom_values():
         assert settings.port == 9000
         assert settings.api_key == "my-secret"
         assert settings.cpu_cores == 8
+        assert settings.host == "0.0.0.0"

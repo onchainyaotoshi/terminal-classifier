@@ -100,16 +100,18 @@ No authentication required.
 PORT=8980
 API_KEY=your-api-key-here
 CPU_CORES=16
+EXPOSE=0
 ```
 
 - `PORT` — HTTP listen port (default: 8980)
 - `API_KEY` — required for `x-api-key` auth
-- `CPU_CORES` — number of CPU cores for PyTorch inference; app sets `OMP_NUM_THREADS` and `MKL_NUM_THREADS` from this value
+- `CPU_CORES` — maximum number of CPU cores PyTorch may use for inference; app sets `OMP_NUM_THREADS` and `MKL_NUM_THREADS` from this value (up to, not pinned)
+- `EXPOSE` — set to `1` to bind on `0.0.0.0` (accessible from network); default `0` binds to `127.0.0.1` (localhost only)
 
 ## Runtime & Performance
 
 - Model loaded once at startup, cached in `~/.cache/huggingface/`
-- `CPU_CORES` env var controls `OMP_NUM_THREADS` and `MKL_NUM_THREADS` internally
+- `CPU_CORES` env var sets `OMP_NUM_THREADS` and `MKL_NUM_THREADS` as an upper limit (uses up to that many cores, not a hard pin)
 - Uvicorn with 1 worker (single model instance in memory)
 - Inference runs in a thread pool executor so the async event loop and health endpoint stay responsive
 - Expected: ~50-200ms per classification on 16-core CPU
