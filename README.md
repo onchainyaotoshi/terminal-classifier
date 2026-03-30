@@ -10,13 +10,21 @@ HTTP API that classifies AI CLI terminal output (Claude Code, Codex CLI, Gemini 
 
 Uses [facebook/bart-large-mnli](https://huggingface.co/facebook/bart-large-mnli) for zero-shot classification.
 
-## Install
+## Getting Started
 
 ```bash
+# Clone the repo
+git clone https://github.com/onchainyaotoshi/terminal-classifier.git
+cd terminal-classifier
+
+# Run the installer (installs Python, deps, model, and systemd service)
 sudo bash install.sh
+
+# Set your API key
+nano .env
 ```
 
-This installs dependencies, downloads the model, creates a systemd service, and starts it.
+The install script handles everything: system packages, Python venv, pip dependencies, model download (~1.5GB), `.env` setup, and systemd service creation.
 
 ## Configuration
 
