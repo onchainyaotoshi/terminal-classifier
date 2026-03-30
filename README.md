@@ -27,6 +27,9 @@ sudo bash install.sh
 
 # Set your API key
 nano .env
+
+# Restart to apply .env changes
+sudo systemctl restart terminal-classifier
 ```
 
 That's it. The service starts automatically after install.
@@ -69,7 +72,7 @@ Terminal A tells Terminal B to do something. How does A know B is done?
 
 ## Configuration
 
-Edit `.env` (created from `.env.example` on first install):
+Edit `.env` (created from `.env.example` on first install). **Restart the service after changes:** `sudo systemctl restart terminal-classifier`
 
 | Variable | Default | Description |
 |----------|---------|-------------|
