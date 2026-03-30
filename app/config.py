@@ -7,7 +7,7 @@ load_dotenv()
 
 class Settings:
     def __init__(self):
-        self.port: int = int(os.getenv("PORT", "8980"))
+        self.port: int = int(os.getenv("PORT", "9981"))
         self.api_key: str = os.getenv("API_KEY", "")
         self.cpu_cores: int = int(os.getenv("CPU_CORES", "1"))
         self.host: str = "0.0.0.0" if os.getenv("EXPOSE", "0") == "1" else "127.0.0.1"

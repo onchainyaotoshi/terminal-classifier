@@ -10,7 +10,7 @@ sudo bash install.sh
 
 # Or run manually
 source venv/bin/activate
-uvicorn app.main:app --host 0.0.0.0 --port 8980
+uvicorn app.main:app --port 9981
 ```
 
 ## Project Structure
@@ -35,6 +35,6 @@ pytest tests/ -v
 ## Configuration
 
 All config in `.env` (see `.env.example`):
-- `PORT` — listen port (default 8980)
+- `PORT` — listen port (default 9981)
 - `API_KEY` — required for auth
 - `CPU_CORES` — max CPU cores for inference

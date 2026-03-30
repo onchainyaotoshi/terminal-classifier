@@ -8,9 +8,9 @@ from fastapi.testclient import TestClient
 def client():
     mock_classifier = MagicMock()
     mock_classifier.classify.return_value = {
-        "classification": "completed",
+        "classification": "processing",
         "confidence": 0.95,
-        "scores": {"waiting_input": 0.02, "processing": 0.03, "completed": 0.95},
+        "scores": {"idle": 0.02, "waiting_confirmation": 0.03, "processing": 0.95},
     }
     with patch("app.main.classifier", mock_classifier), \
          patch("app.main.settings") as mock_settings:
@@ -33,7 +33,7 @@ def test_classify_returns_result(client):
     )
     assert response.status_code == 200
     data = response.json()
-    assert data["classification"] == "completed"
+    assert data["classification"] == "processing"
     assert data["confidence"] == 0.95
     assert "scores" in data
 
